@@ -21,7 +21,11 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@healthflow/infra": ["libs/infra"],
-      "@healthflow/providers": ["libs/providers/src"]
+      "@healthflow/providers": ["libs/providers/src"],
+      "@healthflow/shared": ["libs/modules/shared/src"],
+      "@healthflow/auth": ["libs/modules/auth/src"],
+      "@healthflow/medical": ["libs/modules/medical/src"],
+      "@healthflow/analytics": ["libs/modules/analytics/src"]
     }
   },
   "watchOptions": {

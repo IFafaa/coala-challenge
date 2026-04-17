@@ -33,7 +33,8 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
@@ -42,9 +43,9 @@
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",
     "@nx/eslint": "^20.7.2",
-    "@nx/jest": "^20.7.2",
-    "@nx/js": "^20.7.2",
-    "@nx/nest": "^20.7.2",
+    "@nx/jest": "20.8.4",
+    "@nx/js": "20.8.4",
+    "@nx/nest": "20.8.4",
     "@swc-node/register": "^1.9.1",
     "@swc/core": "^1.5.7",
     "@swc/helpers": "^0.5.11",
@@ -57,6 +58,7 @@
     "eslint-plugin-prettier": "^5.2.2",
     "globals": "^17.0.0",
     "jest": "^30.0.0",
+    "jest-environment-node": "^29.7.0",
     "nx": "^20.7.2",
     "prettier": "^3.4.2",
     "prisma": "^6.19.0",
@@ -68,23 +70,6 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.20.0"
-  },
-  "jest": {
-    "moduleFileExtensions": ["js", "json", "ts"],
-    "rootDir": "libs",
-    "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "collectCoverageFrom": ["**/*.(t|j)s"],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node",
-    "moduleNameMapper": {
-      "^@healthflow/infra/(.*)$": "<rootDir>/infra/$1",
-      "^@healthflow/infra$": "<rootDir>/infra/index.ts",
-      "^@healthflow/providers/(.*)$": "<rootDir>/../providers/src/$1",
-      "^@healthflow/providers$": "<rootDir>/../providers/src/index.ts"
-    }
   },
   "nx": {}
 }
