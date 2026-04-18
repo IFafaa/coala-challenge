@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '@healthflow/infra';
+import { PrismaClient } from '@prisma/client';
 import { Option, ERole } from '@healthflow/shared';
 import { User } from '../../domain/entities/user.entity';
 import { UserRepository } from '../../domain/repositories/user.repository';
@@ -8,7 +8,7 @@ import { UserMapper } from '../mappers/user.mapper';
 
 @Injectable()
 export class PrismaUserRepository extends UserRepository {
-  constructor(private readonly prisma: PrismaService) {
+  constructor(private readonly prisma: PrismaClient) {
     super();
   }
 
