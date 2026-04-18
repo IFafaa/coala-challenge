@@ -25,7 +25,8 @@
       "@healthflow/infra": ["libs/infra"],
       "@healthflow/medical": ["libs/modules/medical/src"],
       "@healthflow/providers": ["libs/providers/src"],
-      "@healthflow/shared": ["libs/modules/shared/src"]
+      "@healthflow/shared": ["libs/modules/shared/src"],
+      "@prisma/client": ["node_modules/.prisma/client"]
     }
   },
   "watchOptions": {

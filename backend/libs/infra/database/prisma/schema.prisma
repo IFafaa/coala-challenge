@@ -12,6 +12,14 @@ enum Role {
   DOCTOR
 }
 
+enum MedicalExamStatus {
+  PENDING
+  PROCESSING
+  DONE
+  ERROR
+  REPORTED
+}
+
 model User {
   id           String    @id @default(uuid())
   email        String    @unique
@@ -20,4 +28,17 @@ model User {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
   lastAccessAt DateTime?
+}
+
+model MedicalExam {
+  id               String             @id @default(uuid())
+  status           MedicalExamStatus  @default(PENDING)
+  fileName         String
+  mimeType         String
+  fileSize         Int
+  storagePath      String?
+  processingResult String?
+  report           String?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
 }
