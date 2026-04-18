@@ -52,4 +52,9 @@ export class User extends Entity<UserProps> {
       lastAccessAt: null,
     });
   }
+
+  login() {
+    this.props.lastAccessAt = new Date();
+    this.props.updatedAt = new Date();
+  }
 }

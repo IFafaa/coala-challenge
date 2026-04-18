@@ -3,6 +3,7 @@ import { TerminusModule } from '@nestjs/terminus';
 import { AnalyticsModule } from '@healthflow/analytics';
 import { AuthModule } from '@healthflow/auth';
 import { MedicalModule } from '@healthflow/medical';
+import { ObservabilityModule } from '@healthflow/observability';
 import { SharedModule } from '@healthflow/shared';
 import { ConfigurationModule } from './configuration';
 import { ApiHealthCheck, DatabaseHealthCheck } from './health-check';
@@ -20,6 +21,7 @@ import { ProvidersModule } from '@healthflow/providers';
     ProvidersModule,
     SharedModule,
     AuthModule,
+    ObservabilityModule,
     MedicalModule,
     AnalyticsModule,
   ],

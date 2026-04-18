@@ -61,6 +61,16 @@ export class EnvironmentVariables {
   @IsOptional()
   @IsString()
   @IsNotEmpty()
+  USER_ACCESS_QUEUE?: string;
+
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  USER_ACCESS_DLQ?: string;
+
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
   AWS_ACCESS_KEY_ID?: string;
 
   @IsOptional()

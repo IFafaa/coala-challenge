@@ -27,6 +27,10 @@ export class LoginUseCase {
     if (!isPasswordValid)
       throw new UnauthorizedException('Invalid credentials');
 
+    user.login();
+
+    await this.userRepository.persist(user);
+
     const access_token = this.jwtService.sign({
       id: user.id,
       email: user.email.value,

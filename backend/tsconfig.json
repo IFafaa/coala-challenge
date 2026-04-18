@@ -24,6 +24,7 @@
       "@healthflow/auth": ["libs/modules/auth/src"],
       "@healthflow/infra": ["libs/infra"],
       "@healthflow/medical": ["libs/modules/medical/src"],
+      "@healthflow/observability": ["libs/modules/observability/src"],
       "@healthflow/providers": ["libs/providers/src"],
       "@healthflow/shared": ["libs/modules/shared/src"],
       "@prisma/client": ["node_modules/.prisma/client"]

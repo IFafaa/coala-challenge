@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ObservabilityModule } from '@healthflow/observability';
 import { ProvidersModule } from '@healthflow/providers';
 import { CreateReportUseCase } from './application/use-cases/create-report.use-case';
 import { ListExamsUseCase } from './application/use-cases/list-exams.use-case';
@@ -11,7 +12,7 @@ import { PrismaMedicalExamRepository } from './infrastructure/repositories/prism
 import { ExamsController } from './presentation/http/controllers/exams.controller';
 
 @Module({
-  imports: [ProvidersModule],
+  imports: [ProvidersModule, ObservabilityModule],
   controllers: [ExamsController],
   providers: [
     ExamConsumerService,

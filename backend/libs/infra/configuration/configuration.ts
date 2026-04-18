@@ -17,6 +17,10 @@ export interface IConfiguration {
     queue: string;
     dlq: string;
   };
+  userAccess: {
+    queue: string;
+    dlq: string;
+  };
   aws: {
     accessKeyId: string;
     secretAccessKey: string;
@@ -41,6 +45,10 @@ export const configuration = (): IConfiguration => ({
   examProcessing: {
     queue: process.env.EXAM_PROCESSING_QUEUE ?? '',
     dlq: process.env.EXAM_PROCESSING_DLQ ?? '',
+  },
+  userAccess: {
+    queue: process.env.USER_ACCESS_QUEUE ?? 'user-access.events',
+    dlq: process.env.USER_ACCESS_DLQ ?? 'user-access.events.dlq',
   },
   aws: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? '',
