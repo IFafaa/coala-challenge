@@ -1,6 +1,10 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { basename } from 'path';
 import { IObjectStorageProvider, isErr, ok, Result } from '@healthflow/shared';
+import {
+  EUserAccessAction,
+  UserAccessEventPort,
+} from '@healthflow/observability';
 import { MedicalExam } from '../../domain/entities/medical-exam.entity';
 import { ExamProcessingQueuePort } from '../../domain/ports/exam-processing-queue.port';
 import { MedicalExamRepository } from '../../domain/repositories/medical-exam.repository';
@@ -12,6 +16,7 @@ export class UploadExamUseCase {
     private readonly medicalExamRepository: MedicalExamRepository,
     private readonly examProcessingQueue: ExamProcessingQueuePort,
     private readonly objectStorage: IObjectStorageProvider,
+    private readonly userAccessEvents: UserAccessEventPort,
   ) {}
 
   async execute(command: UploadExamCommand) {
@@ -40,11 +45,22 @@ export class UploadExamUseCase {
       throw new InternalServerErrorException(publishExamQueuedResult.error);
     }
 
-    return {
+    const result = {
       id: updatedExam.id,
       status: updatedExam.status,
       processingResult: updatedExam.processingResult,
     };
+
+    await this.userAccessEvents.publish({
+      module: 'medical',
+      useCase: 'UploadExamUseCase',
+      userId: command.uploadedBy.id,
+      action: EUserAccessAction.UPLOAD_EXAM,
+      description: `Uploaded exam ${updatedExam.id} (${command.fileName}) by ${command.uploadedBy.id}`,
+      occurredAt: new Date().toISOString(),
+    });
+
+    return result;
   }
 
   private async getObjectKey(

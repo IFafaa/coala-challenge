@@ -25,7 +25,7 @@ export class ListExamsUseCase {
           },
         );
 
-    return exams.map((exam) => ({
+    const result = exams.map((exam) => ({
       id: exam.id,
       status: exam.status,
       fileName: exam.fileName,
@@ -42,5 +42,7 @@ export class ListExamsUseCase {
         role: exam.uploadedBy.role,
       },
     }));
+
+    return result;
   }
 }

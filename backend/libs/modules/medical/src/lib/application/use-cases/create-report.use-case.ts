@@ -4,12 +4,19 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { isErr } from '@healthflow/shared';
+import {
+  EUserAccessAction,
+  UserAccessEventPort,
+} from '@healthflow/observability';
 import { MedicalExamRepository } from '../../domain/repositories/medical-exam.repository';
 import { CreateReportCommand } from '../commands/create-report.command';
 
 @Injectable()
 export class CreateReportUseCase {
-  constructor(private readonly medicalExamRepository: MedicalExamRepository) {}
+  constructor(
+    private readonly medicalExamRepository: MedicalExamRepository,
+    private readonly userAccessEvents: UserAccessEventPort,
+  ) {}
 
   async execute(command: CreateReportCommand) {
     const exam = await this.medicalExamRepository.findById(command.examId);
@@ -25,7 +32,7 @@ export class CreateReportUseCase {
 
     const updatedExam = await this.medicalExamRepository.persist(exam);
 
-    return {
+    const result = {
       id: updatedExam.id,
       status: updatedExam.status,
       fileName: updatedExam.fileName,
@@ -47,5 +54,16 @@ export class CreateReportUseCase {
         role: updatedExam.uploadedBy.role,
       },
     };
+
+    await this.userAccessEvents.publish({
+      module: 'medical',
+      useCase: 'CreateReportUseCase',
+      userId: command.reportedBy.id,
+      action: EUserAccessAction.CREATE_REPORT,
+      description: `Reported exam ${command.examId} by ${command.reportedBy.id}`,
+      occurredAt: new Date().toISOString(),
+    });
+
+    return result;
   }
 }
