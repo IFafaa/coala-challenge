@@ -61,12 +61,12 @@ export class EnvironmentVariables {
   @IsOptional()
   @IsString()
   @IsNotEmpty()
-  USER_ACCESS_QUEUE?: string;
+  USER_ACCESS_LOG_QUEUE?: string;
 
   @IsOptional()
   @IsString()
   @IsNotEmpty()
-  USER_ACCESS_DLQ?: string;
+  USER_ACCESS_LOG_DLQ?: string;
 
   @IsOptional()
   @IsString()

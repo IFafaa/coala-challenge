@@ -4,8 +4,8 @@ This library was generated with [Nx](https://nx.dev).
 
 Provides:
 - Global HTTP interceptors for request logging and error logging.
-- `UserAccessEventPort` to publish user-access events to RabbitMQ.
-- A consumer that persists user-access events into the `UserAccess` table.
+- `UserAccessLogEventPort` to publish user-access-log events to RabbitMQ.
+- A consumer that persists user-access-log events into the `UserAccessLog` table.
 
 ## Running unit tests
 

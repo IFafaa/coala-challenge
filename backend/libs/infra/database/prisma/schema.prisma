@@ -29,9 +29,9 @@ model User {
   updatedAt    DateTime  @updatedAt
   lastAccessAt DateTime?
 
-  uploadedMedicalExams MedicalExam[] @relation("MedicalExamUploadedBy")
-  reportedMedicalExams MedicalExam[] @relation("MedicalExamReportedBy")
-  userAccesses         UserAccess[]
+  uploadedMedicalExams MedicalExam[]    @relation("MedicalExamUploadedBy")
+  reportedMedicalExams MedicalExam[]    @relation("MedicalExamReportedBy")
+  userAccessLogs       UserAccessLog[]
 }
 
 model MedicalExam {
@@ -52,7 +52,7 @@ model MedicalExam {
   reportedBy User? @relation("MedicalExamReportedBy", fields: [reportedById], references: [id])
 }
 
-model UserAccess {
+model UserAccessLog {
   id          String   @id @default(uuid())
   userId      String
   module      String

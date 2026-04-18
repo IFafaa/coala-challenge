@@ -1,7 +1,7 @@
 import { Entity } from '@healthflow/shared';
 import { randomUUID } from 'crypto';
 
-export interface UserAccessProps {
+export interface UserAccessLogProps {
   id: string;
   userId: string;
   module: string;
@@ -12,7 +12,7 @@ export interface UserAccessProps {
   createdAt: Date;
 }
 
-export class UserAccess extends Entity<UserAccessProps> {
+export class UserAccessLog extends Entity<UserAccessLogProps> {
   get userId(): string {
     return this.props.userId;
   }
@@ -48,8 +48,8 @@ export class UserAccess extends Entity<UserAccessProps> {
     action: string;
     description: string;
     occurredAt: Date;
-  }): UserAccess {
-    return new UserAccess({
+  }): UserAccessLog {
+    return new UserAccessLog({
       id: randomUUID(),
       userId: input.userId,
       module: input.module,

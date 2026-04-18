@@ -2,8 +2,8 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { basename } from 'path';
 import { IObjectStorageProvider, isErr, ok, Result } from '@healthflow/shared';
 import {
-  EUserAccessAction,
-  UserAccessEventPort,
+  EUserAccessLogAction,
+  UserAccessLogEventPort,
 } from '@healthflow/observability';
 import { MedicalExam } from '../../domain/entities/medical-exam.entity';
 import { ExamProcessingQueuePort } from '../../domain/ports/exam-processing-queue.port';
@@ -16,7 +16,7 @@ export class UploadExamUseCase {
     private readonly medicalExamRepository: MedicalExamRepository,
     private readonly examProcessingQueue: ExamProcessingQueuePort,
     private readonly objectStorage: IObjectStorageProvider,
-    private readonly userAccessEvents: UserAccessEventPort,
+    private readonly userAccessLogEvents: UserAccessLogEventPort,
   ) {}
 
   async execute(command: UploadExamCommand) {
@@ -51,11 +51,11 @@ export class UploadExamUseCase {
       processingResult: updatedExam.processingResult,
     };
 
-    await this.userAccessEvents.publish({
+    await this.userAccessLogEvents.publish({
       module: 'medical',
       useCase: 'UploadExamUseCase',
       userId: command.uploadedBy.id,
-      action: EUserAccessAction.UPLOAD_EXAM,
+      action: EUserAccessLogAction.UPLOAD_EXAM,
       description: `Uploaded exam ${updatedExam.id} (${command.fileName}) by ${command.uploadedBy.id}`,
       occurredAt: new Date().toISOString(),
     });

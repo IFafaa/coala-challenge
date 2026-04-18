@@ -5,8 +5,8 @@ import {
 } from '@nestjs/common';
 import { isErr } from '@healthflow/shared';
 import {
-  EUserAccessAction,
-  UserAccessEventPort,
+  EUserAccessLogAction,
+  UserAccessLogEventPort,
 } from '@healthflow/observability';
 import { MedicalExamRepository } from '../../domain/repositories/medical-exam.repository';
 import { CreateReportCommand } from '../commands/create-report.command';
@@ -15,7 +15,7 @@ import { CreateReportCommand } from '../commands/create-report.command';
 export class CreateReportUseCase {
   constructor(
     private readonly medicalExamRepository: MedicalExamRepository,
-    private readonly userAccessEvents: UserAccessEventPort,
+    private readonly userAccessLogEvents: UserAccessLogEventPort,
   ) {}
 
   async execute(command: CreateReportCommand) {
@@ -55,11 +55,11 @@ export class CreateReportUseCase {
       },
     };
 
-    await this.userAccessEvents.publish({
+    await this.userAccessLogEvents.publish({
       module: 'medical',
       useCase: 'CreateReportUseCase',
       userId: command.reportedBy.id,
-      action: EUserAccessAction.CREATE_REPORT,
+      action: EUserAccessLogAction.CREATE_REPORT,
       description: `Reported exam ${command.examId} by ${command.reportedBy.id}`,
       occurredAt: new Date().toISOString(),
     });

@@ -17,7 +17,7 @@ export interface IConfiguration {
     queue: string;
     dlq: string;
   };
-  userAccess: {
+  userAccessLog: {
     queue: string;
     dlq: string;
   };
@@ -46,9 +46,9 @@ export const configuration = (): IConfiguration => ({
     queue: process.env.EXAM_PROCESSING_QUEUE ?? '',
     dlq: process.env.EXAM_PROCESSING_DLQ ?? '',
   },
-  userAccess: {
-    queue: process.env.USER_ACCESS_QUEUE ?? 'user-access.events',
-    dlq: process.env.USER_ACCESS_DLQ ?? 'user-access.events.dlq',
+  userAccessLog: {
+    queue: process.env.USER_ACCESS_LOG_QUEUE ?? 'user-access-log.events',
+    dlq: process.env.USER_ACCESS_LOG_DLQ ?? 'user-access-log.events.dlq',
   },
   aws: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? '',

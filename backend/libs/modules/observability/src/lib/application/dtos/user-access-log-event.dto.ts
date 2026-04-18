@@ -1,4 +1,4 @@
-export interface UserAccessEventDto {
+export interface UserAccessLogEventDto {
   module: string;
   useCase: string;
   userId: string;

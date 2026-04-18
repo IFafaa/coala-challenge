@@ -39,7 +39,7 @@ CREATE TABLE "MedicalExam" (
 );
 
 -- CreateTable
-CREATE TABLE "UserAccess" (
+CREATE TABLE "UserAccessLog" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "module" TEXT NOT NULL,
@@ -49,17 +49,17 @@ CREATE TABLE "UserAccess" (
     "occurredAt" TIMESTAMP(3) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "UserAccess_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "UserAccessLog_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
-CREATE INDEX "UserAccess_userId_createdAt_idx" ON "UserAccess"("userId", "createdAt");
+CREATE INDEX "UserAccessLog_userId_createdAt_idx" ON "UserAccessLog"("userId", "createdAt");
 
 -- CreateIndex
-CREATE INDEX "UserAccess_module_useCase_idx" ON "UserAccess"("module", "useCase");
+CREATE INDEX "UserAccessLog_module_useCase_idx" ON "UserAccessLog"("module", "useCase");
 
 -- AddForeignKey
 ALTER TABLE "MedicalExam" ADD CONSTRAINT "MedicalExam_uploadedById_fkey" FOREIGN KEY ("uploadedById") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -68,4 +68,4 @@ ALTER TABLE "MedicalExam" ADD CONSTRAINT "MedicalExam_uploadedById_fkey" FOREIGN
 ALTER TABLE "MedicalExam" ADD CONSTRAINT "MedicalExam_reportedById_fkey" FOREIGN KEY ("reportedById") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "UserAccess" ADD CONSTRAINT "UserAccess_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "UserAccessLog" ADD CONSTRAINT "UserAccessLog_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
