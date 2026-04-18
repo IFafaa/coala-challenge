@@ -20,12 +20,12 @@
     "strictBindCallApply": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@healthflow/infra": ["libs/infra"],
-      "@healthflow/providers": ["libs/providers/src"],
-      "@healthflow/shared": ["libs/modules/shared/src"],
+      "@healthflow/analytics": ["libs/modules/analytics/src"],
       "@healthflow/auth": ["libs/modules/auth/src"],
+      "@healthflow/infra": ["libs/infra"],
       "@healthflow/medical": ["libs/modules/medical/src"],
-      "@healthflow/analytics": ["libs/modules/analytics/src"]
+      "@healthflow/providers": ["libs/providers/src"],
+      "@healthflow/shared": ["libs/modules/shared/src"]
     }
   },
   "watchOptions": {
