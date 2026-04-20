@@ -23,13 +23,8 @@ async function bootstrap() {
     }),
   );
 
-  const corsOrigins = (process.env.CORS_ORIGINS ?? 'http://localhost:3001')
-    .split(',')
-    .map((o) => o.trim())
-    .filter(Boolean);
-
   app.enableCors({
-    origin: corsOrigins,
+    origin: ['*'],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
