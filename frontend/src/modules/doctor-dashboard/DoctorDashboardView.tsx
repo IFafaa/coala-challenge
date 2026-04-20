@@ -23,7 +23,7 @@ import { useExamPolling } from '@/shared/hooks';
 import { useI18n } from '@/shared/i18n';
 import { AppShell } from '@/shared/layouts';
 import { StatusChip } from '@/shared/ui';
-import { formatDateTime, formatFileSize } from '@/shared/utils';
+import { formatDateTime, formatFileSize, safeHttpUrl } from '@/shared/utils';
 import { EMedicalExamStatus, type ExamListItem } from '@/shared/types';
 import { ReportDialog } from './components/ReportDialog';
 
@@ -90,15 +90,17 @@ export function DoctorDashboardView() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {queue.map((exam) => (
+                  {queue.map((exam) => {
+                    const fileUrl = safeHttpUrl(exam.examDocument.url);
+                    return (
                     <TableRow key={exam.id} hover>
                       <TableCell>
                         <Stack spacing={0.3}>
-                          {exam.examDocument.url ? (
+                          {fileUrl ? (
                             <Link
-                              href={exam.examDocument.url}
+                              href={fileUrl}
                               target="_blank"
-                              rel="noreferrer"
+                              rel="noopener noreferrer"
                               underline="hover"
                             >
                               {exam.examDocument.fileName}
@@ -137,7 +139,8 @@ export function DoctorDashboardView() {
                         </Button>
                       </TableCell>
                     </TableRow>
-                  ))}
+                    );
+                  })}
                 </TableBody>
               </Table>
             </TableContainer>

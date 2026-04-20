@@ -15,7 +15,7 @@ import { apiClient, ApiError } from '@/core/api';
 import type { ExamListItem } from '@/shared/types';
 import { useI18n } from '@/shared/i18n';
 import { AppTextField } from '@/shared/ui';
-import { formatDateTime, formatFileSize } from '@/shared/utils';
+import { formatDateTime, formatFileSize, safeHttpUrl } from '@/shared/utils';
 
 interface ReportDialogProps {
   exam: ExamListItem | null;
@@ -66,18 +66,21 @@ export function ReportDialog({ exam, onClose, onSubmitted }: ReportDialogProps) 
               <Typography variant="subtitle2" color="text.secondary">
                 {t('report.file')}
               </Typography>
-              {exam.examDocument.url ? (
-                <Link
-                  href={exam.examDocument.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  underline="hover"
-                >
-                  {exam.examDocument.fileName}
-                </Link>
-              ) : (
-                <Typography>{exam.examDocument.fileName}</Typography>
-              )}
+              {(() => {
+                const fileUrl = safeHttpUrl(exam.examDocument.url);
+                return fileUrl ? (
+                  <Link
+                    href={fileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    underline="hover"
+                  >
+                    {exam.examDocument.fileName}
+                  </Link>
+                ) : (
+                  <Typography>{exam.examDocument.fileName}</Typography>
+                );
+              })()}
               <Typography variant="caption" color="text.secondary">
                 {t('report.fileMeta', {
                   mime: exam.examDocument.mimeType,

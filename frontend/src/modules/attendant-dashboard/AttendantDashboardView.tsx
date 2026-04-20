@@ -20,7 +20,7 @@ import { useExamPolling } from '@/shared/hooks';
 import { useI18n } from '@/shared/i18n';
 import { AppShell } from '@/shared/layouts';
 import { StatusChip } from '@/shared/ui';
-import { formatDateTime, formatFileSize } from '@/shared/utils';
+import { formatDateTime, formatFileSize, safeHttpUrl } from '@/shared/utils';
 import { UploadExamButton } from './components/UploadExamButton';
 
 export function AttendantDashboardView() {
@@ -83,15 +83,17 @@ export function AttendantDashboardView() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {exams.map((exam) => (
+                  {exams.map((exam) => {
+                    const fileUrl = safeHttpUrl(exam.examDocument.url);
+                    return (
                     <TableRow key={exam.id} hover>
                       <TableCell>
                         <Stack spacing={0.3}>
-                          {exam.examDocument.url ? (
+                          {fileUrl ? (
                             <Link
-                              href={exam.examDocument.url}
+                              href={fileUrl}
                               target="_blank"
-                              rel="noreferrer"
+                              rel="noopener noreferrer"
                               underline="hover"
                             >
                               {exam.examDocument.fileName}
@@ -126,7 +128,8 @@ export function AttendantDashboardView() {
                         </Typography>
                       </TableCell>
                     </TableRow>
-                  ))}
+                    );
+                  })}
                 </TableBody>
               </Table>
             </TableContainer>
